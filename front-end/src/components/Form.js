@@ -9,25 +9,24 @@ const Form = () => {
     // Assignement des données récupérées depuis TMDB à des constantes
     const [moviesData, setMoviesData] = useState([]);
     // Assignement de la recherche utilisateur
-    const [search, setSearch] = useState('');
+    const [query, setQuery] = useState('');
     // Assignement pour retourner (top et flop) les films en fonction de leur note
-    const [sortGoodBad, setSortGoodBad] = useState(null);
+    const [sortGoodBad, setSortGoodBad] = useState("goodToBad");
 
-    if (search === '') { // Check si search est null pour afficher les films populaire
-        // Requête pour aller chercher les films depuis TMDB en fonction de l'input de recherche est vide
+    if (query === '') { // Check si query est null pour afficher les films populaire
+        // Requête pour aller chercher les films depuis le back-end si l'input de recherche est vide
         axios.get(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`
+            `http://localhost:3001/movies`
         ).then((res) => setMoviesData(res.data.results));
-
     }
 
     // Fonction lançant la recherche au clic du bouton du formulaire
     const handleSearch = async (event) => {
-        if (search != null) { // Check si search est rempli pour afficher les films correspondant à la recherche
+        if (query != null) { // Check si query est rempli pour afficher les films correspondant à la recherche
             event.preventDefault();
-            // Requête pour aller chercher les films depuis TMDB en fonction de l'input renseigné
+            // Requête pour aller chercher les films depuis le back-end en fonction de l'input renseigné
             axios.get(
-                `https://api.themoviedb.org/3/search/movie/?api_key=${process.env.REACT_APP_TMDB_API_KEY}&query=${search}&language=fr-FR`
+                `http://localhost:3001/movies/search?query=${query}`
             ).then((res) => setMoviesData(res.data.results));
             setSortGoodBad(null);
         }
@@ -42,7 +41,7 @@ const Form = () => {
                         type="text"
                         placeholder='Titre du film'
                         id='search-input'
-                        onChange={(event) => setSearch(event.target.value)}
+                        onChange={(event) => setQuery(event.target.value)}
                     />
                     <input
                         type="submit"

@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+require('dotenv').config({ path: './config/.env' });
 
 // Création d'une application express  
 app.use(express.json());

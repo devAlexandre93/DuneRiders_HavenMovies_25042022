@@ -17,8 +17,8 @@ const FavoritesMovies = () => {
         for (let i = 0; i < moviesId.length; i++) {
             axios
                 .get(
-                    `https://api.themoviedb.org/3/movie/${moviesId[i]}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`
-                ).then((res) => setListData((listData) => [...listData, res.data]));
+                    `http://localhost:3001/movies/details?movieId=${moviesId[i]}`
+                ).then((res) => setListData((listData) => [...listData, res.data.result]));
         }
     }, []);
 

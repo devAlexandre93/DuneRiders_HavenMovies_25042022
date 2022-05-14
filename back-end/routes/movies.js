@@ -8,6 +8,7 @@ const moviesCtrl = require('../controller/movies');
 // Ajout des routes "movies"
 router.get('/', moviesCtrl.getPopularMovies);
 router.get('/search', moviesCtrl.getMoviesBySearch);
+router.get('/details', moviesCtrl.getMovieDetails);
 
 // Export
 module.exports = router

@@ -124,7 +124,7 @@ const Card = ({ movie }) => {
                 </div>
             ) : (
                 <div className="btn" onClick={() => deleteStorage()}>
-                    Supprimer de mes films
+                    Retirer de mes films
                 </div>
             )}
         </div>
