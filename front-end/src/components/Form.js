@@ -41,7 +41,7 @@ const Form = () => {
             `http://localhost:3001/movies/similarMovies?movieId=${movieId}`
         ).then((res) => setMoviesData(res.data.results));
         setSortGoodBad(null);
-        setIdForSimilarMovie(movieId);
+
     }
 
     // Code HTML à injecter
@@ -95,6 +95,7 @@ const Form = () => {
                         <Card
                             key={movie.id}
                             movie={movie}
+                            setIdForSimilarMovie={setIdForSimilarMovie}
                             handleRecommendations={() => handleRecommendations(movie.id)}
                         />
                     ))}
