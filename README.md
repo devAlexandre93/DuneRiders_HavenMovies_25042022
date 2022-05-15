@@ -35,3 +35,4 @@ TMDB_API_KEY="Votre API key TMDB"
 - Rechercher un film avec son titre
 - Classer la recherche de film en fonction des notes
 - Ajouter et retirer ses films préférés
+- Obtenir des recommendations à partir d'un film

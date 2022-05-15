@@ -170,3 +170,39 @@ exports.getFavoriteMovies = async (req, res) => {
     }
     res.status(200).json(arrayFavoriteMoviesId);
 };
+
+// Fetch similar movie from TMDB api
+const fetchSimilarMovies = async (movieId) => {
+    try {
+        let result;
+        await axios
+            .get(
+                `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.TMDB_API_KEY}&language=fr-FR&page=1`
+            )
+            .then((response) => {
+                result = response.data.results;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// Get similar movies
+exports.getSimilarMovies = async (req, res, next) => {
+    try {
+        const { movieId } = req.query;
+        const results = await fetchSimilarMovies(movieId);
+
+        return res.status(200).json({
+            status: 200,
+            message: `${results.length} movies found`,
+            results
+        })
+    } catch (err) {
+        return next(err);
+    }
+};

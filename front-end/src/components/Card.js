@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 
 // Fonction qui gère l'affichage du composant Card qui contient les infos d'un film sur la page d'accueil
-const Card = ({ movie }) => {
+const Card = ({ movie, handleRecommendations }) => {
 
     // Fonction permettant de formater les dates du film
     const dateFormater = (date) => {
@@ -108,12 +108,16 @@ const Card = ({ movie }) => {
             ) : (
                 ""
             )}
-            <h4>{movie.vote_average}/10 <span>⭐</span></h4>
+            <h4>
+                {movie.vote_average.toFixed(1)}/10
+                <span>⭐</span>
+            </h4>
             <ul>{movie.genre_ids
                 ? genreFinder()
                 : movie.genres.map((genre, index) => (
                     <li key={index}>{genre.name}</li>
                 ))}
+                <li className='btnSimilarMovies' onClick={handleRecommendations}> Films similaires </li>
             </ul>
             {movie.overview ? <h3> Synopsys </h3> : ""}
             <p>{movie.overview}</p>

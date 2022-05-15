@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 // Fonction qui gère l'affichage du composant Header
 const Header = () => {
+
     return (
         <div className="header">
             <nav>

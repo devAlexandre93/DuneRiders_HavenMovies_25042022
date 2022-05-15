@@ -13,7 +13,7 @@ const FavoritesMovies = () => {
     // useEffect contenant deux requêtes pour récupérer les films préférés depuis le back-end (requête 1) puis les afficher (reqûete 2)
     useEffect(() => {
         axios.get(
-            `http://localhost:3001/movies/getFavoriteMovies`
+            `http://localhost:3001/movies/favoriteMovies`
         ).then((res) => {
             for (let i = 0; i < res.data.length; i++) {
                 axios
@@ -24,7 +24,6 @@ const FavoritesMovies = () => {
         })
     }, []);
 
-
     // Code HTML à injecter
     return (
         <div className='user-list-page'>
@@ -32,7 +31,11 @@ const FavoritesMovies = () => {
             <h2> Films préférés <span>💖</span> </h2>
             <div className="result">
                 {listData.length > 0
-                    ? listData.map((movie) => <Card movie={movie} key={movie.id} />)
+                    ? listData.map((movie) =>
+                        <Card
+                            movie={movie}
+                            key={movie.id}
+                        />)
                     : <h2> Aucun film préféré pour le moment </h2>
                 }
             </div>

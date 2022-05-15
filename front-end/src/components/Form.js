@@ -12,8 +12,10 @@ const Form = () => {
     const [query, setQuery] = useState('');
     // Assignement pour retourner (top et flop) les films en fonction de leur note
     const [sortGoodBad, setSortGoodBad] = useState("goodToBad");
+    // Assignement pour récupérer l'id du film dont il faut afficher les films similaires
+    const [idForSimilarMovie, setIdForSimilarMovie] = useState('');
 
-    if (query === '') { // Check si query est null pour afficher les films populaire
+    if (query === '' && idForSimilarMovie === '') { // Check si query est idForSimilarMovie sont null pour afficher les films populaire à la première connexion
         // Requête pour aller chercher les films depuis le back-end si l'input de recherche est vide
         axios.get(
             `http://localhost:3001/movies`
@@ -30,6 +32,16 @@ const Form = () => {
             ).then((res) => setMoviesData(res.data.results));
             setSortGoodBad(null);
         }
+    }
+
+    // Fonction affichant les films similaires au clic du bouton "Films similaires" d'un film
+    const handleRecommendations = async (movieId) => {
+        // Requête pour aller chercher les films similaires depuis le back-end en fonction du film qui a été cliqué
+        axios.get(
+            `http://localhost:3001/movies/similarMovies?movieId=${movieId}`
+        ).then((res) => setMoviesData(res.data.results));
+        setSortGoodBad(null);
+        setIdForSimilarMovie(movieId);
     }
 
     // Code HTML à injecter
@@ -80,7 +92,11 @@ const Form = () => {
                         }
                     })
                     .map((movie) => (
-                        <Card key={movie.id} movie={movie} />
+                        <Card
+                            key={movie.id}
+                            movie={movie}
+                            handleRecommendations={() => handleRecommendations(movie.id)}
+                        />
                     ))}
             </div>
         </div>

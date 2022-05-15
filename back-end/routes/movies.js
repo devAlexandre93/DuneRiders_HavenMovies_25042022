@@ -11,7 +11,9 @@ router.get('/search', moviesCtrl.getMoviesBySearch);
 router.get('/details', moviesCtrl.getMovieDetails);
 router.post('/addMovie', moviesCtrl.addMovieToFavorites);
 router.delete('/removeMovie', moviesCtrl.removeMovieFromFavorites);
-router.get('/getFavoriteMovies', moviesCtrl.getFavoriteMovies);
+router.get('/favoriteMovies', moviesCtrl.getFavoriteMovies);
+router.get('/similarMovies', moviesCtrl.getSimilarMovies);
+
 
 // Export
 module.exports = router
