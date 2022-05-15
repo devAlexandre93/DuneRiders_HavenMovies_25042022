@@ -21,7 +21,7 @@ Ceci est un projet réalisé par une équipe de 3 personnes dans le cadre du Bac
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
-- Dans le dossier `config` du dossier `back-end`, créer un fichier `.env` remplissez lecomme indiqué :
+- Dans le dossier `config` du dossier `back-end`, créer un fichier `.env` remplissez le comme indiqué :
 TMDB_API_KEY="Votre API key TMDB"
 - Depuis le dossier `back-end`, exécuter la commande `npm start` pour lancer le serveur, si tout fonctionne correctement le message `Server running on port 3001` apparaitra
 

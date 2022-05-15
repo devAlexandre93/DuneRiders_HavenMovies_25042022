@@ -80,26 +80,6 @@ const Card = ({ movie }) => {
         return genreArray.map((genre) => <li key={genre}>{genre}</li>);
     };
 
-    // Fonction permettant d'ajouter un film au Local Storage
-    //const addStorage = () => {
-    //    let storedData = window.localStorage.movies
-    //        ? window.localStorage.movies.split(",")
-    //        : []; // Récupération de ce qui a été stocké dans le Local Storage s'il y a quelque chose. Si vide, création d'un tableau
-
-    //    if (!storedData.includes(movie.id.toString())) { // Vérification pour voir si l'Id du film n'est pas déjà dans le tableau
-    //        storedData.push(movie.id); // Ajout de l'Id du film dans le tableau si celui-ci n'y est pas déjà
-    //        window.localStorage.movies = storedData; // Incorporation de la donnée dans le Local Storage
-    //    }
-    //};
-
-    // Fonction permettant de retirer un film au Local Storage
-    //const deleteStorage = () => {
-    //    let storedData = window.localStorage.movies.split(",");
-    //    let newData = storedData.filter((id) => id != movie.id);
-    //    window.localStorage.movies = newData;
-    //    window.location.reload();
-    //};
-
     // Fonction permettant d'ajouter un film préféré à la base de données
     const addFavoriteMovie = () => {
         axios({

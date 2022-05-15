@@ -10,11 +10,6 @@ const FavoritesMovies = () => {
     // Const contenant les Ids des films dans les favoris à afficher
     const [listData, setListData] = useState([]);
 
-    //axios.get(
-    //    `http://localhost:3001/movies/getFavoriteMovies`
-    //).then((res) => setListMoviesId(res.data));
-    //console.log(listMoviesId)
-
     // useEffect contenant deux requêtes pour récupérer les films préférés depuis le back-end (requête 1) puis les afficher (reqûete 2)
     useEffect(() => {
         axios.get(
@@ -27,7 +22,6 @@ const FavoritesMovies = () => {
                     ).then((res) => setListData((listData) => [...listData, res.data.result]));
             }
         })
-        //let moviesId = window.localStorage.movies ? window.localStorage.movies.split(",") : []; // Récupération de ce qui a été stocké dans le Local Storage s'il y a quelque chose. S'il n'y a rien cela retourne un tableau vide
     }, []);
 
 
