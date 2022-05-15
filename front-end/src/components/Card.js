@@ -1,5 +1,6 @@
 // Imports
 import React from 'react';
+import axios from 'axios';
 
 // Fonction qui gère l'affichage du composant Card qui contient les infos d'un film sur la page d'accueil
 const Card = ({ movie }) => {
@@ -80,24 +81,42 @@ const Card = ({ movie }) => {
     };
 
     // Fonction permettant d'ajouter un film au Local Storage
-    const addStorage = () => {
-        let storedData = window.localStorage.movies
-            ? window.localStorage.movies.split(",")
-            : []; // Récupération de ce qui a été stocké dans le Local Storage s'il y a quelque chose. Si vide, création d'un tableau
+    //const addStorage = () => {
+    //    let storedData = window.localStorage.movies
+    //        ? window.localStorage.movies.split(",")
+    //        : []; // Récupération de ce qui a été stocké dans le Local Storage s'il y a quelque chose. Si vide, création d'un tableau
 
-        if (!storedData.includes(movie.id.toString())) { // Vérification pour voir si l'Id du film n'est pas déjà dans le tableau
-            storedData.push(movie.id); // Ajout de l'Id du film dans le tableau si celui-ci n'y est pas déjà
-            window.localStorage.movies = storedData; // Incorporation de la donnée dans le Local Storage
-        }
-    };
+    //    if (!storedData.includes(movie.id.toString())) { // Vérification pour voir si l'Id du film n'est pas déjà dans le tableau
+    //        storedData.push(movie.id); // Ajout de l'Id du film dans le tableau si celui-ci n'y est pas déjà
+    //        window.localStorage.movies = storedData; // Incorporation de la donnée dans le Local Storage
+    //    }
+    //};
 
     // Fonction permettant de retirer un film au Local Storage
-    const deleteStorage = () => {
-        let storedData = window.localStorage.movies.split(",");
-        let newData = storedData.filter((id) => id != movie.id);
-        window.localStorage.movies = newData;
-        window.location.reload();
-    };
+    //const deleteStorage = () => {
+    //    let storedData = window.localStorage.movies.split(",");
+    //    let newData = storedData.filter((id) => id != movie.id);
+    //    window.localStorage.movies = newData;
+    //    window.location.reload();
+    //};
+
+    // Fonction permettant d'ajouter un film préféré à la base de données
+    const addFavoriteMovie = () => {
+        axios({
+            method: "post",
+            url: "http://localhost:3001/movies/addMovie",
+            data: { movieId: movie.id }
+        })
+    }
+
+    // Fonction permettant d'ajouter un film préféré à la base de données
+    const deleteFavoriteMovie = () => {
+        axios({
+            method: "delete",
+            url: "http://localhost:3001/movies/removeMovie",
+            data: { movieId: movie.id }
+        }).then(window.location.reload());
+    }
 
     // Code HTML à injecter
     return (
@@ -119,11 +138,11 @@ const Card = ({ movie }) => {
             {movie.overview ? <h3> Synopsys </h3> : ""}
             <p>{movie.overview}</p>
             {movie.genre_ids ? (
-                <div className="btn" onClick={() => addStorage()}>
+                <div className="btn" onClick={() => addFavoriteMovie()}>
                     Ajouter à mes films
                 </div>
             ) : (
-                <div className="btn" onClick={() => deleteStorage()}>
+                <div className="btn" onClick={() => deleteFavoriteMovie()}>
                     Retirer de mes films
                 </div>
             )}

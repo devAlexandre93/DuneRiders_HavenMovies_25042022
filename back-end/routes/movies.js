@@ -9,6 +9,9 @@ const moviesCtrl = require('../controller/movies');
 router.get('/', moviesCtrl.getPopularMovies);
 router.get('/search', moviesCtrl.getMoviesBySearch);
 router.get('/details', moviesCtrl.getMovieDetails);
+router.post('/addMovie', moviesCtrl.addMovieToFavorites);
+router.delete('/removeMovie', moviesCtrl.removeMovieFromFavorites);
+router.get('/getFavoriteMovies', moviesCtrl.getFavoriteMovies);
 
 // Export
 module.exports = router

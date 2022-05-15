@@ -7,19 +7,27 @@ import Card from '../components/Card';
 // Fonction qui gère l'affichage de la page des films préférés de l'utilisateur de l'app
 const FavoritesMovies = () => {
 
-    // Const permettant de savoir si un film est dans les favoris ou non
+    // Const contenant les Ids des films dans les favoris à afficher
     const [listData, setListData] = useState([]);
 
-    // useEffect contenant une requête pour aller chercher les films depuis TMDB qui sont dans la liste des films préférés de l'utilisateur
-    useEffect(() => {
-        let moviesId = window.localStorage.movies ? window.localStorage.movies.split(",") : []; // Récupération de ce qui a été stocké dans le Local Storage s'il y a quelque chose. S'il n'y a rien cela retourne un tableau vide
+    //axios.get(
+    //    `http://localhost:3001/movies/getFavoriteMovies`
+    //).then((res) => setListMoviesId(res.data));
+    //console.log(listMoviesId)
 
-        for (let i = 0; i < moviesId.length; i++) {
-            axios
-                .get(
-                    `http://localhost:3001/movies/details?movieId=${moviesId[i]}`
-                ).then((res) => setListData((listData) => [...listData, res.data.result]));
-        }
+    // useEffect contenant deux requêtes pour récupérer les films préférés depuis le back-end (requête 1) puis les afficher (reqûete 2)
+    useEffect(() => {
+        axios.get(
+            `http://localhost:3001/movies/getFavoriteMovies`
+        ).then((res) => {
+            for (let i = 0; i < res.data.length; i++) {
+                axios
+                    .get(
+                        `http://localhost:3001/movies/details?movieId=${res.data[i]}`
+                    ).then((res) => setListData((listData) => [...listData, res.data.result]));
+            }
+        })
+        //let moviesId = window.localStorage.movies ? window.localStorage.movies.split(",") : []; // Récupération de ce qui a été stocké dans le Local Storage s'il y a quelque chose. S'il n'y a rien cela retourne un tableau vide
     }, []);
 
 

@@ -1,5 +1,6 @@
 // Imports
 const axios = require('axios').default;
+const { FavoriteMovies } = require("../models");
 
 // Fetch popular movies from TMDB api
 const fetchPopularMovies = async () => {
@@ -106,4 +107,66 @@ exports.getMovieDetails = async (req, res, next) => {
     } catch (err) {
         return next(err);
     }
+};
+
+// Add a movie to the favorites
+exports.addMovieToFavorites = async (req, res, next) => {
+    try {
+        const { movieId } = req.body;
+        await FavoriteMovies.create({
+            tmdbId: movieId,
+        });
+        return res.status(200).json({
+            status: 200,
+            message: `Movie successfully added`,
+        })
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// Remove a movie from the favorites
+exports.removeMovieFromFavorites = async (req, res, next) => {
+    try {
+        const { movieId } = req.body;
+        await FavoriteMovies.destroy({
+            where: {
+                tmdbId: movieId,
+            },
+        });
+        return res.status(200).json({
+            status: 200,
+            message: `Movie successfully removed`,
+        })
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// Remove a movie from the favorites
+exports.removeMovieFromFavorites = async (req, res, next) => {
+    try {
+        const { movieId } = req.body;
+        await FavoriteMovies.destroy({
+            where: {
+                tmdbId: movieId,
+            },
+        });
+        return res.status(200).json({
+            status: 200,
+            message: `Movie successfully removed`,
+        })
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// Get all the favorite movies
+exports.getFavoriteMovies = async (req, res) => {
+    const favoriteMovies = await FavoriteMovies.findAll();
+    let arrayFavoriteMoviesId = new Array();
+    for (let i = 0; i < favoriteMovies.length; i++) {
+        arrayFavoriteMoviesId.push(favoriteMovies[i].tmdbId)
+    }
+    res.status(200).json(arrayFavoriteMoviesId);
 };
